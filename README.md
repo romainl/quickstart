@@ -1,17 +1,17 @@
 # quickstart
 
-**HTML5** + **JavaScript (CommonJS)** + **SCSS** + LiveReload
+**HTML5** + **JavaScript (CommonJS)** + **SCSS** + **LiveReload**
 
-Clone:
+**Clone:**
 
     $ git clone --depth=1 --branch=master git@github.com:romainl/quickstart.git dir
     $ rm -rf !$/.git
 
-Install:
+**Install:**
 
     $ npm install
 
-Build:
+**Build:**
 
     $ npm run all
 
@@ -19,7 +19,7 @@ or
 
     $ make all
 
-Compile:
+**Compile:**
 
     $ npm run code
 
@@ -27,7 +27,7 @@ or
 
     $ make code
 
-Watch:
+**Watch:**
 
     $ npm run watch
 
