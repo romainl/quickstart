@@ -17,9 +17,11 @@
   },
   "main": "source/js/main.js",
   "scripts": {
-    "build": "make all",
-    "prewatch": "bash -c \"livereload build -i 500 > /dev/null &\"",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "make all",
+    "all": "make all",
+    "code": "make code",
+    "prewatch": "bash -c \"livereload build -i 500 > /dev/null &\"",
     "watch": "watch -n 1 make code"
   },
   "keywords": [

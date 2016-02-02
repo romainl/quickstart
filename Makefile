@@ -7,11 +7,13 @@ PATH  := node_modules/.bin:$(PATH)
 # is ctags available?
 CTAGS := $(shell command -v ctags)
 
+# generic targets
 .PHONY: all
 all: clean setup code
 
-.PHONY: code
-code: build/js/build.js build/css/build.css
+.PHONY: clean
+clean:
+	rm -rf build
 
 .PHONY: setup
 setup:
@@ -21,10 +23,10 @@ setup:
 	cp -ru source/scss/vendor build/css
 	cp -ru source/images build/
 
-.PHONY: clean
-clean:
-	rm -rf build
+.PHONY: code
+code: build/js/build.js build/css/build.css $(wildcard build/*.html)
 
+# specific targets
 build/js/build.js: $(wildcard source/js/*.js) $(wildcard source/js/**/*.js)
 	browserify -t debowerify -t hintify source/js/main.js -o build/js/build.js
 ifdef CTAGS
@@ -33,3 +35,6 @@ endif
 
 build/css/build.css: $(wildcard source/scss/*.scss) $(wildcard source/scss/**/*.scss)
 	node-sass -q --source-map 'true' source/scss/main.scss build/css/build.css
+
+$(wildcard build/*.html): $(wildcard source/*.html)
+	cp -ru $? build/
