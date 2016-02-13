@@ -1,6 +1,6 @@
 # quickstart
 
-**HTML5** + **JavaScript (CommonJS)** + **SCSS**, the light way.
+**HTML5** + **JavaScript** + **SCSS**, the light way.
 
 ## Why?
 
@@ -20,7 +20,7 @@ If we put them together, we have a relatively smart system that:
 * copies our pages *only* if a `*.html` file was changed/added/removed,
 * copies our `images` directory *only* if something changed in it.
 
-"But Gulp?", you asked? Or was it "But Brunch?"? No tanks.
+"But Gulp?", you asked? Or was it "But Brunch?"? No thanks.
 
 ## How ?
 
