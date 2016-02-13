@@ -17,7 +17,7 @@
   "main": "source/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "bower install && make all && npm start",
+    "postinstall": "bower install && make all && while sleep 1; do make compile; done",
     "build": "make build",
     "compile": "make compile",
     "start": "while sleep 1; do make compile; done"
