@@ -9,7 +9,7 @@ CTAGS := $(shell command -v ctags)
 
 # generic targets
 .PHONY: all
-all: clean setup code
+all: clean setup compile
 
 .PHONY: clean
 clean:
@@ -23,8 +23,9 @@ setup:
 	cp -ru source/scss/vendor build/css
 	cp -ru source/images build/
 
-.PHONY: code
-code: build/js/build.js build/css/build.css $(wildcard build/*.html)
+.PHONY: compile
+compile: build/js/build.js build/css/build.css $(wildcard build/*.html) $(wildcard build/images/*)
+	@true
 
 # specific targets
 build/js/build.js: $(wildcard source/js/*.js) $(wildcard source/js/**/*.js)
@@ -38,3 +39,6 @@ build/css/build.css: $(wildcard source/scss/*.scss) $(wildcard source/scss/**/*.
 
 $(wildcard build/*.html): $(wildcard source/*.html)
 	cp -ru $? build/
+
+$(wildcard build/images/*): $(wildcard source/images/*)
+	cp -ru source/images build/

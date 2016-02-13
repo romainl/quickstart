@@ -12,17 +12,17 @@
     "browserify": "^11.1.0",
     "debowerify": "^1.3.1",
     "hintify": "^0.1.0",
-    "livereload": "^0.3.7",
+    "minir": "^0.1.0",
     "node-sass": "^3.3.3"
   },
   "main": "source/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "make all",
-    "all": "make all",
-    "code": "make code",
-    "prewatch": "bash -c \"livereload build -i 500 > /dev/null &\"",
-    "watch": "watch -n 1 make code"
+    "postinstall": "bower install && make all && npm start",
+    "build": "make build",
+    "compile": "make compile",
+    "prestart": "cd build; minir > /dev/null & open http://localhost:3000/index.html",
+    "start": "while sleep 1; do make compile; done"
   },
   "keywords": [
     "starter",

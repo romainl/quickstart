@@ -13,24 +13,12 @@
 
 **Build:**
 
-    $ npm run all
-
-or
-
-    $ make all
+    $ npm run build
 
 **Compile:**
 
-    $ npm run code
-
-or
-
-    $ make code
+    $ npm run compile
 
 **Watch:**
 
-    $ npm run watch
-
-or
-
-    $ watch -n 1 make code
+    $ npm start
