@@ -28,17 +28,21 @@ compile: build/js/build.js build/css/build.css $(wildcard build/*.html) $(wildca
 	@true
 
 # specific targets
+# compile js
 build/js/build.js: $(wildcard source/js/*.js) $(wildcard source/js/**/*.js)
 	browserify -t debowerify -t hintify source/js/main.js -o build/js/build.js
 ifdef CTAGS
 	cd source/js > /dev/null && ctags -R .
 endif
 
+# compile scss
 build/css/build.css: $(wildcard source/scss/*.scss) $(wildcard source/scss/**/*.scss)
 	node-sass -q --source-map 'true' source/scss/main.scss build/css/build.css
 
+# copy html
 $(wildcard build/*.html): $(wildcard source/*.html)
 	cp -ru $? build/
 
+# copy images
 $(wildcard build/images/*): $(wildcard source/images/*)
 	cp -ru source/images build/
