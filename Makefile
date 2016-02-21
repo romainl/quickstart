@@ -9,40 +9,71 @@ CTAGS := $(shell command -v ctags)
 
 # generic targets
 .PHONY: all
-all: clean setup compile
+all: clean setup copy compile
+	@true
+
+.PHONY: build
+build: clean setup copy
+	@true
+
+.PHONY: start
+start:
+	while sleep 1; do make compile; done
 
 .PHONY: clean
 clean:
+	@echo ""
 	rm -rf build
 
 .PHONY: setup
 setup:
+	@echo ""
 	mkdir -p build/{images,js,css}
-	cp -ru source/*.html build/
+
+.PHONY: copy
+copy:
+	@echo ""
 	cp -ru source/js/vendor build/js
 	cp -ru source/scss/vendor build/css
+	cp -ru source/*.html build/
 	cp -ru source/images build/
 
+.PHONY: assets
+assets: html images
+	@true
+
 .PHONY: compile
-compile: build/js/build.js build/css/build.css $(wildcard build/*.html) $(wildcard build/images/*)
+compile: build/js/build.js build/css/build.css
 	@true
 
 # specific targets
 # compile js
 build/js/build.js: $(wildcard source/js/*.js) $(wildcard source/js/**/*.js)
+	@echo ""
 	browserify -t debowerify -t hintify source/js/main.js -o build/js/build.js
 ifdef CTAGS
-	cd source/js > /dev/null && ctags -R .
+	ctags --tag-relative=yes --recurse=yes source/js
 endif
 
 # compile scss
 build/css/build.css: $(wildcard source/scss/*.scss) $(wildcard source/scss/**/*.scss)
+	@echo ""
 	node-sass -q --source-map 'true' source/scss/main.scss build/css/build.css
 
 # copy html
+.PHONY: html
+html: $(wildcard build/*.html)
+	@true
+
 $(wildcard build/*.html): $(wildcard source/*.html)
+	@echo ""
 	cp -ru $? build/
 
 # copy images
-$(wildcard build/images/*): $(wildcard source/images/*)
-	cp -ru source/images build/
+.PHONY: images
+images: $(wildcard build/images/*.png)
+	@true
+
+$(wildcard build/images/*.png): $(wildcard source/images/*.png)
+	@echo ""
+	cp -ru $^ build/images/

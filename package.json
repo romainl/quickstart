@@ -17,14 +17,14 @@
   "main": "source/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "bower install && make all && while sleep 1; do make compile; done",
+    "postinstall": "bower install && make all && make start",
     "build": "make build",
     "compile": "make compile",
-    "start": "while sleep 1; do make compile; done"
+    "assets": "make assets",
+    "start": "make all && make start"
   },
   "keywords": [
-    "starter",
-    "kit"
+    "quikstart"
   ],
   "license": "MIT"
 }
