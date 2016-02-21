@@ -40,10 +40,22 @@ Actually, it doesn't even eat up *one* megabyte of memory, happily leaves in a s
 
     $ npm run build
 
+or
+
+    $ make build
+
 **Compile:**
 
     $ npm run compile
 
+or
+
+    $ make compile
+
 **Watch:**
 
     $ npm start
+
+or
+
+    $ make start

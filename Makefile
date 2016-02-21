@@ -18,6 +18,7 @@ build: clean setup copy
 
 .PHONY: start
 start:
+	@echo ""
 	while sleep 1; do make compile; done
 
 .PHONY: clean
@@ -28,7 +29,7 @@ clean:
 .PHONY: setup
 setup:
 	@echo ""
-	mkdir -p build/{images,js,css}
+	mkdir -p build/{images,js,css,html}
 
 .PHONY: copy
 copy:
@@ -36,14 +37,15 @@ copy:
 	cp -ru source/js/vendor build/js
 	cp -ru source/scss/vendor build/css
 	cp -ru source/*.html build/
+	cp -ru source/html build/
 	cp -ru source/images build/
 
 .PHONY: assets
-assets: html images
+assets: build/images build/html
 	@true
 
 .PHONY: compile
-compile: build/js/build.js build/css/build.css
+compile: build/js/build.js build/css/build.css build/index.html build/images build/html
 	@true
 
 # specific targets
@@ -61,19 +63,15 @@ build/css/build.css: $(wildcard source/scss/*.scss) $(wildcard source/scss/**/*.
 	node-sass -q --source-map 'true' source/scss/main.scss build/css/build.css
 
 # copy html
-.PHONY: html
-html: $(wildcard build/*.html)
-	@true
-
-$(wildcard build/*.html): $(wildcard source/*.html)
+build/index.html: source/index.html
 	@echo ""
-	cp -ru $? build/
+	cp -u source/index.html build/
+
+build/html: $(wildcard source/html/*)
+	@echo ""
+	cp -ru source/html build/ && touch build/html
 
 # copy images
-.PHONY: images
-images: $(wildcard build/images/*.png)
-	@true
-
-$(wildcard build/images/*.png): $(wildcard source/images/*.png)
+build/images: $(wildcard source/images/*)
 	@echo ""
-	cp -ru $^ build/images/
+	cp -ru source/images build/ && touch build/images
