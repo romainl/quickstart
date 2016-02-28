@@ -18,9 +18,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "bower install && make all && make start",
-    "build": "make build",
+    "all": "make all",
     "compile": "make compile",
-    "assets": "make assets",
     "start": "make all && make start"
   },
   "keywords": [
