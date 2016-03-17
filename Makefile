@@ -29,9 +29,15 @@ start:
 compile: build/js/build.js build/css/build.css build build/images
 	@true
 
+# test js
+.PHONY: test
+test:
+	tape source/js/test/*.js | tap-diff
+
 # compile js
-build/js/build.js: $(wildcard source/js/*.js) $(wildcard source/js/**/*.js)
+build/js/build.js: $(wildcard source/js/*.js) $(wildcard source/js/modules/*.js)
 	browserify -t debowerify -t hintify source/js/main.js -o build/js/build.js
+	make --silent test
 ifdef CTAGS
 	ctags --tag-relative=yes --recurse=yes source/js
 endif

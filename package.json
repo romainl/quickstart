@@ -12,15 +12,17 @@
     "browserify": "^11.1.0",
     "debowerify": "^1.3.1",
     "hintify": "^0.1.0",
-    "node-sass": "^3.3.3"
+    "node-sass": "^3.3.3",
+    "tap-diff": "^0.1.1",
+    "tape": "^4.5.1"
   },
   "main": "source/js/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "bower install && make all && make start",
+    "test": "make -s test",
+    "postinstall": "bower install && make all && make -s start",
     "all": "make all",
     "compile": "make compile",
-    "start": "make all && make start"
+    "start": "make all && make -s start"
   },
   "keywords": [
     "quikstart"
