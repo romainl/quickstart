@@ -11,7 +11,7 @@ CTAGS := $(shell command -v ctags)
 .PHONY: all
 all:
 	rm -rf build
-	mkdir -p build/{images,js,css,html}
+	mkdir -p build/{images,js,css}
 	browserify -t debowerify -t hintify source/js/main.js -o build/js/build.js
 	node-sass -q --source-map 'true' source/scss/main.scss build/css/build.css
 	cp -ru source/js/vendor build/js
@@ -37,7 +37,7 @@ test:
 # compile js
 build/js/build.js: $(wildcard source/js/*.js) $(wildcard source/js/modules/*.js)
 	browserify -t debowerify -t hintify source/js/main.js -o build/js/build.js
-	make --silent test
+	make --s test
 ifdef CTAGS
 	ctags --tag-relative=yes --recurse=yes source/js
 endif
