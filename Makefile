@@ -13,6 +13,7 @@ all:
 	rm -rf build
 	mkdir -p build/{images,js,css}
 	browserify -t debowerify -t hintify source/js/main.js -o build/js/build.js
+	tape source/js/test/*.js | tap-diff
 	node-sass -q --source-map 'true' source/scss/main.scss build/css/build.css
 	cp -ru source/js/vendor build/js
 	cp -ru source/scss/vendor build/css
@@ -37,13 +38,13 @@ test:
 # compile js
 build/js/build.js: $(wildcard source/js/*.js) $(wildcard source/js/modules/*.js)
 	browserify -t debowerify -t hintify source/js/main.js -o build/js/build.js
-	make --s test
+	make test
 ifdef CTAGS
-	ctags --tag-relative=yes --recurse=yes source/js
+	ctags --tag-relative=yes --recurse=yes -f source/tags source/js
 endif
 
 # compile scss
-build/css/build.css: $(wildcard source/scss/*.scss) $(wildcard source/scss/**/*.scss)
+build/css/build.css: $(wildcard source/scss/*.scss) $(wildcard source/scss/modules/*.scss)
 	node-sass -q --source-map 'true' source/scss/main.scss build/css/build.css
 
 # copy html
