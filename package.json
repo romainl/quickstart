@@ -19,10 +19,10 @@
   "main": "source/js/main.js",
   "scripts": {
     "test": "make -s test",
-    "postinstall": "bower install && make all && make -s start",
+    "postinstall": "bower install && make all && make -s watch",
     "all": "make all",
-    "compile": "make compile",
-    "start": "make all && make -s start"
+    "compile": "make -s compile",
+    "watch": "make all && make -s watch"
   },
   "keywords": [
     "quikstart"
