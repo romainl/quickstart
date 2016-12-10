@@ -34,19 +34,19 @@ Actually, it doesn't even eat up *one* megabyte of memory, happily leaves in a s
 
 **Install:**
 
-    $ yarn
+    $ npm install
 
 **Build:**
 
-    $ yarn run all
+    $ npm run all
 
 or
 
-    $ make
+    $ make [all]
 
 **Compile:**
 
-    $ yarn run compile
+    $ npm run compile
 
 or
 
@@ -54,7 +54,7 @@ or
 
 **Watch:**
 
-    $ yarn run watch
+    $ npm run watch
 
 or
 
