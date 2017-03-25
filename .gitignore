@@ -1,5 +1,12 @@
 # https://github.com/github/gitignore
 
+#############
+#  Project  #
+#############
+
+build/js/
+build/css/
+
 ############
 #  System  #
 ############
@@ -212,9 +219,3 @@ bower_components/
 
 # TortoiseGit
 /.tgitconfig
-
-#############
-#  Project  #
-#############
-
-build/

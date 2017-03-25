@@ -7,23 +7,23 @@
     "type": "git",
     "url": "https://github.com/romainl/quickstart"
   },
-  "dependencies": {},
   "devDependencies": {
     "babel-preset-latest": "^6.16.0",
     "babelify": "^7.3.0",
     "browserify": "^11.1.0",
-    "hintify": "^0.1.0",
     "node-sass": "^3.3.3",
     "tap-diff": "^0.1.1",
-    "tape": "^4.5.1"
+    "tape": "^4.5.1",
+    "eslintify": "^3.1.0",
+    "uglify-js": "^2.8.16"
   },
   "main": "source/js/main.js",
   "scripts": {
     "test": "make -s test",
-    "postinstall": "bower install && make all && make -s watch",
-    "all": "make all",
-    "compile": "make -s compile",
-    "watch": "make all && make -s watch"
+    "postinstall": "make -s all && make -s watch",
+    "make": "make -s all",
+    "make:prod": "PROD=1 make -s all",
+    "watch": "make -s all && make -s watch"
   },
   "keywords": [
     "quikstart"

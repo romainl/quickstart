@@ -19,9 +19,7 @@ Putting them together should give us a relatively smart system that:
 * doesn't eat up hundreds of megabytes of memory,
 * compiles our JavaScript *only* if a `*.js` files was changed/added/removed,
 * compiles our CSS *only* if a `*.scss` file was changed/added/removed,
-* copies our pages *only* if a `*.html` file was changed/added/removed,
-* copies our images *only* if a file in `images` was changed/added,
-* whatever else we need it to do…
+* does whatever else we need it to do…
 
 Actually, it doesn't even eat up *one* megabyte of memory, happily leaves in a single thread and doesn't even have a measurable processor usage. It feels like having your files built out of thin air.
 
@@ -32,30 +30,30 @@ Actually, it doesn't even eat up *one* megabyte of memory, happily leaves in a s
     $ git clone --depth=1 --branch=master git@github.com:romainl/quickstart.git path/to/directory
     $ rm -rf !$/.git
 
-**Install:**
+**Install dependencies:**
 
-    $ npm install
+    $ yarn
 
 **Build:**
 
-    $ npm run all
+    $ yarn run make
 
 or
 
-    $ make [all]
+    $ make -s
 
-**Compile:**
+**Build for production:**
 
-    $ npm run compile
+    $ yarn run make:prod
 
 or
 
-    $ make compile
+    $ PROD=1 make -s
 
 **Watch:**
 
-    $ npm run watch
+    $ yarn run watch
 
 or
 
-    $ make watch
+    $ make -s watch

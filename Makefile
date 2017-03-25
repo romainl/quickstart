@@ -27,36 +27,37 @@ CTAGS := $(shell command -v ctags)
 # feedback
 OUT    = @echo `date +[\ %F\ -\ %T\ ]`
 
+
+
 # $ make all
-# cleanup, setup, copy
+# sets up the build directories and build the JS and CSS
 .PHONY: all
-all:
-	@rm -rf build
-	@mkdir -p build/{images,js,css}
-	@browserify -t [ babelify --presets [ latest ] ] -t hintify source/js/main.js -o build/js/build.js
-	@node source/js/test/*.js | tap-diff
-	@node-sass -q --source-map 'true' source/scss/main.scss build/css/build.css
-	@cp -ru source/js/vendor build/js
-	@cp -ru source/scss/vendor build/css
-	@cp -ru source/*.html build/
-	@cp -ru source/images build/
+all: setup build
+	@true
 	$(OUT) "Project compiled."
 
 # $ make watch
-# start watcher
+# starts the watcher
 .PHONY: watch
 watch:
 	$(OUT) "Watching..."
-	@while sleep 1; do make compile; done
+	@while sleep 1; do make build; done
 
-# $ make compile
-# compile and copy
-.PHONY: compile
-compile: build/js/build.js build/css/build.css build build/images
+# $ make setup
+# creates build directories if needed
+.PHONY: setup
+setup:
+	@mkdir -p build/{js,css}
+	$(OUT) "Setup done."
+
+# $ make build
+# builds the JS and CSS
+.PHONY: build
+build: build/js/build.js build/css/build.css
 	@true
 
 # $ make test
-# test js
+# tests the JS
 .PHONY: test
 test:
 	@node source/js/test/*.js | tap-diff
@@ -64,26 +65,27 @@ test:
 
 
 
-# compile js
-build/js/build.js: $(wildcard source/js/*.js) $(wildcard source/js/modules/*.js)
-	@browserify -t [ babelify --presets [ latest ] ] -t hintify source/js/main.js -o build/js/build.js
+# build js
+build/js/build.js: $(wildcard source/js/*.js) $(wildcard source/js/modules/*.js) $(wildcard source/js/test/*.js)
+ifdef PROD
 	@make test
+	@browserify -t [ babelify --presets [ latest ] ] -t eslintify source/js/main.js | uglifyjs -o build/js/build.js
+	$(OUT) "'build/js/build.js' compiled and minified."
+else
+	@make test
+	@browserify -t [ babelify --presets [ latest ] ] -t eslintify -d source/js/main.js -o build/js/build.js
 ifdef CTAGS
 	@ctags --tag-relative=yes --recurse=yes -f source/tags source/js
 endif
 	$(OUT) "'build/js/build.js' compiled, 'source/tags' generated."
+endif
 
-# compile scss
+# build scss
 build/css/build.css: $(wildcard source/scss/*.scss) $(wildcard source/scss/modules/*.scss)
-	@node-sass -q --source-map 'true' source/scss/main.scss build/css/build.css
+ifdef PROD
+	@node-sass -q --output-style 'compressed' source/scss/main.scss build/css/build.css
+	$(OUT) "'build/css/build.css' compiled and minified."
+else
+	@node-sass -q --source-map-contents 'true' --source-map-embed 'true' source/scss/main.scss build/css/build.css
 	$(OUT) "'build/css/build.css' compiled."
-
-# copy html
-build: $(wildcard source/*.html)
-	@cp -u $? build/ && touch build
-	$(OUT) \'$?\'" copied to 'build'."
-
-# copy images
-build/images: $(wildcard source/images/*)
-	@cp -u $? build/images/ && touch build/images
-	$(OUT) \'$?\'" copied to 'build/images'."
+endif
