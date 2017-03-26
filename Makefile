@@ -36,13 +36,6 @@ all: setup build
 	@true
 	$(OUT) "Project compiled."
 
-# $ make watch
-# starts the watcher
-.PHONY: watch
-watch:
-	$(OUT) "Watching..."
-	@while sleep 1; do make build; done
-
 # $ make setup
 # creates build directories if needed
 .PHONY: setup
@@ -61,7 +54,14 @@ build: build/js/build.js build/css/build.css
 .PHONY: test
 test:
 	@node source/js/test/*.js | tap-diff
-	$(OUT) "Tests done."
+	$(OUT) "Tests passed."
+
+# $ make watch
+# starts the watcher
+.PHONY: watch
+watch:
+	$(OUT) "Watching..."
+	@while sleep 1; do make build; done
 
 
 
@@ -72,7 +72,7 @@ ifdef PROD
 	@browserify -t [ babelify --presets [ latest ] ] -t eslintify source/js/main.js | uglifyjs -o build/js/build.js
 	$(OUT) "'build/js/build.js' compiled and minified."
 else
-	@make test
+	@-make test
 	@browserify -t [ babelify --presets [ latest ] ] -t eslintify -d source/js/main.js -o build/js/build.js
 ifdef CTAGS
 	@ctags --tag-relative=yes --recurse=yes -f source/tags source/js

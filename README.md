@@ -42,6 +42,15 @@ or
 
     $ make -s
 
+1. The JavaScript test suite is executed by Tape.
+2. The JavaScript is linted (via Eslint) and compiled (via Babel if necessary) by Browserify.
+3. The SCSS is compiled by Node-sass.
+
+NOTE:
+
+* Failing tests are non-blocking.
+* The resulting bundles are properly sourcemapped.
+
 **Build for production:**
 
     $ yarn run make:prod
@@ -50,6 +59,15 @@ or
 
     $ PROD=1 make -s
 
+1. The JavaScript test suite is executed by Tape.
+2. The JavaScript is linted (via Eslint) and compiled (via Babel if necessary) by Browserify before being minified by Uglify-js.
+3. The SCSS is compiled and minified by Node-sass.
+
+NOTE:
+
+* Failing tests are blocking.
+* The resulting bundles don't contain sourcemaps.
+
 **Watch:**
 
     $ yarn run watch
@@ -57,3 +75,8 @@ or
 or
 
     $ make -s watch
+
+NOTE:
+
+* To keep the compile cycle as short as possible, failing tests are non-blocking.
+* The resulting bundles are properly sourcemapped.
