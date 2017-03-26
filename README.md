@@ -71,3 +71,5 @@ NOTE:
 
 * To keep the compile cycle as short as possible, failing tests are non-blocking.
 * The resulting bundles are properly sourcemapped.
+
+![screenshot](http://romainl.github.io/images/quickstart.png)
