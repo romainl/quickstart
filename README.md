@@ -64,7 +64,8 @@ NOTE:
 
     $ yarn run watch
 
-`$ make -s all` is executed, followd by `$ make -s watch` which in turn executes `$ make -s build` every second.
+1. The project is built once.
+2. `$ make -s build` is executed in a 1s loop, rebuilding the JS or the CSS when needed.
 
 NOTE:
 
