@@ -38,13 +38,9 @@ Actually, it doesn't even eat up *one* megabyte of memory, happily leaves in a s
 
     $ yarn run make
 
-or
-
-    $ make -s
-
-1. The JavaScript test suite is executed by Tape.
-2. The JavaScript is linted (via Eslint) and compiled (via Babel if necessary) by Browserify.
-3. The SCSS is compiled by Node-sass.
+1. The JavaScript test suite is executed with Tape.
+2. The JavaScript is linted (via Eslint) and compiled (via Babel if necessary) with Browserify.
+3. The SCSS is compiled with Node-sass.
 
 NOTE:
 
@@ -55,13 +51,9 @@ NOTE:
 
     $ yarn run make:prod
 
-or
-
-    $ PROD=1 make -s
-
-1. The JavaScript test suite is executed by Tape.
-2. The JavaScript is linted (via Eslint) and compiled (via Babel if necessary) by Browserify before being minified by Uglify-js.
-3. The SCSS is compiled and minified by Node-sass.
+1. The JavaScript test suite is executed with Tape.
+2. The JavaScript is linted (via Eslint) and compiled (via Babel if necessary) with Browserify before being minified with Uglify-js.
+3. The SCSS is compiled and minified with Node-sass.
 
 NOTE:
 
@@ -72,9 +64,7 @@ NOTE:
 
     $ yarn run watch
 
-or
-
-    $ make -s watch
+`$ make -s all` is executed, followd by `$ make -s watch` which in turn executes `$ make -s build` every second.
 
 NOTE:
 
