@@ -4,8 +4,8 @@
 #  Project  #
 #############
 
-build/js/
-build/css/
+build/js/bundle.js
+build/css/bundle.css
 
 ############
 #  System  #

@@ -2,13 +2,15 @@
   "name": "quickstart",
   "description": "quickstart",
   "author": "romainl",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/romainl/quickstart"
   },
   "devDependencies": {
+    "babel-preset-env": "^1.3.3",
     "babel-preset-latest": "^6.16.0",
+    "babel-register": "^6.24.1",
     "babelify": "^7.3.0",
     "browserify": "^11.1.0",
     "eslintify": "^3.1.0",
@@ -23,7 +25,8 @@
     "postinstall": "make -s help",
     "make": "make -s all",
     "make:prod": "PROD=1 make -s all",
-    "watch": "make -s all && make -s watch"
+    "watch": "make -s all && make -s watch",
+    "help": "make -s help"
   },
   "keywords": [
     "quikstart"

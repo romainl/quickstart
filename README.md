@@ -36,7 +36,7 @@ Actually, it doesn't even eat up *one* megabyte of memory, happily leaves in a s
 
 **Build:**
 
-    $ yarn run make
+    $ yarn make
 
 1. The JavaScript test suite is executed with Tape.
 2. The JavaScript is linted (via Eslint) and compiled (via Babel if necessary) with Browserify.
@@ -44,12 +44,12 @@ Actually, it doesn't even eat up *one* megabyte of memory, happily leaves in a s
 
 NOTE:
 
-* Failing tests are non-blocking.
+* To keep the compile cycle as short as possible, failing tests are non-blocking.
 * The resulting bundles are properly sourcemapped.
 
 **Build for production:**
 
-    $ yarn run make:prod
+    $ yarn make:prod
 
 1. The JavaScript test suite is executed with Tape.
 2. The JavaScript is linted (via Eslint) and compiled (via Babel if necessary) with Browserify before being minified with Uglify-js.
@@ -62,10 +62,10 @@ NOTE:
 
 **Watch:**
 
-    $ yarn run watch
+    $ yarn watch
 
 1. The project is built once.
-2. `$ make -s build` is executed in a 1s loop, rebuilding the JS or the CSS when needed.
+2. `$ make -s build` is executed in a 1s loop, rebuilding what must be built when it must be built.
 
 NOTE:
 
