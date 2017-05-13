@@ -47,6 +47,18 @@ NOTE:
 * To keep the compile cycle as short as possible, failing tests are non-blocking.
 * The resulting bundles are properly sourcemapped.
 
+**Watch:**
+
+    $ yarn watch
+
+1. The project is built once.
+2. `$ make -s build` is executed in a 1s loop, rebuilding what must be built when it must be built.
+
+NOTE:
+
+* To keep the compile cycle as short as possible, failing tests are non-blocking.
+* The resulting bundles are properly sourcemapped.
+
 **Build for production:**
 
     $ yarn make:prod
@@ -59,17 +71,5 @@ NOTE:
 
 * Failing tests are blocking.
 * The resulting bundles don't contain sourcemaps.
-
-**Watch:**
-
-    $ yarn watch
-
-1. The project is built once.
-2. `$ make -s build` is executed in a 1s loop, rebuilding what must be built when it must be built.
-
-NOTE:
-
-* To keep the compile cycle as short as possible, failing tests are non-blocking.
-* The resulting bundles are properly sourcemapped.
 
 ![screenshot](http://romainl.github.io/images/quickstart.png)
