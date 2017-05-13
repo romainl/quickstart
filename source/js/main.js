@@ -2,5 +2,5 @@
 // ==========
 
 (function main() {
-	// do stuff
+	console.log('Let\'s go!');
 })();
