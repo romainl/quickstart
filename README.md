@@ -17,8 +17,8 @@ And there is the mind-blowingly simple `while sleep n; do something; done`, whic
 Putting them together should give us a relatively smart system that:
 
 * doesn't eat up hundreds of megabytes of memory,
-* compiles our JavaScript *only* if a `*.js` files was changed/added/removed,
-* compiles our CSS *only* if a `*.scss` file was changed/added/removed,
+* compiles our fancy JavaScript into a browser-friendly ES5 bundle *only* if a `*.js` files was changed/added/removed,
+* compiles our fancy SCSS into a browser-friendly CSS bundle *only* if a `*.scss` file was changed/added/removed,
 * does whatever else we need it to do…
 
 Actually, it doesn't even eat up *one* megabyte of memory, happily leaves in a single thread and doesn't even have a measurable processor usage. It feels like having your files built out of thin air.
