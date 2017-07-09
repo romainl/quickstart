@@ -53,7 +53,7 @@ build: build/js/bundle.js build/css/bundle.css
 # tests the JS
 .PHONY: test
 test:
-	@tape -r babel-register source/js/test/*.js | tap-diff
+	@tape -r babel-register source/js/tests/*.js | tap-diff
 	$(OUT) "Tests passed."
 
 # $ make -s watch
@@ -69,11 +69,11 @@ watch:
 build/js/bundle.js: $(wildcard source/js/*.js) $(wildcard source/js/modules/*.js) $(wildcard source/js/test/*.js)
 ifdef PROD
 	@make -s test
-	@browserify -t [ babelify --presets [ latest ] ] -t eslintify source/js/main.js | uglifyjs -o build/js/bundle.js
+	@browserify -t [ babelify ] -t eslintify source/js/main.js | uglifyjs -o build/js/bundle.js
 	$(OUT) "'build/js/bundle.js' compiled and minified."
 else
 	@-make -s test
-	@browserify -t [ babelify --presets [ latest ] ] -t eslintify -d source/js/main.js -o build/js/bundle.js
+	@browserify -t [ babelify ] -t eslintify -d source/js/main.js -o build/js/bundle.js
 ifdef CTAGS
 	@ctags --tag-relative=yes --recurse=yes -f source/tags source/js
 endif

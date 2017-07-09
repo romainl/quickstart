@@ -1,12 +1,5 @@
 # https://github.com/github/gitignore
 
-#############
-#  Project  #
-#############
-
-build/js/bundle.js
-build/css/bundle.css
-
 ############
 #  System  #
 ############
@@ -219,3 +212,11 @@ bower_components/
 
 # TortoiseGit
 /.tgitconfig
+
+#############
+#  Project  #
+#############
+
+build/js/bundle.js
+build/css/bundle.css
+!source/js/node_modules
