@@ -50,11 +50,20 @@ build: build/js/bundle.js build/css/bundle.css
 	@true
 
 # $ make -s test
-# tests the JS
+# runs all JS tests
 .PHONY: test
 test:
-	@tape -r babel-register source/js/tests/*.js | tap-diff
-	$(OUT) "Tests passed."
+	@tape -r babel-register source/js/**/*.test.js | tap-diff
+	$(OUT) "Testing done."
+
+# $ make -s tags
+# indexes the project
+.PHONY: tags
+tags:
+ifdef CTAGS
+	@ctags --tag-relative=yes --recurse=yes -f source/tags source/js
+endif
+	$(OUT) "'source/tags' generated."
 
 # $ make -s watch
 # starts the watcher
@@ -66,28 +75,26 @@ watch:
 
 
 # build js
-build/js/bundle.js: $(wildcard source/js/*.js) $(wildcard source/js/modules/*.js) $(wildcard source/js/test/*.js)
+build/js/bundle.js: source/js/main.js $(wildcard source/js/*.js) $(wildcard source/js/modules/*.js) $(wildcard source/js/test/*.js)
 ifdef PROD
 	@make -s test
-	@browserify -t [ babelify ] -t eslintify source/js/main.js | uglifyjs -o build/js/bundle.js
-	$(OUT) "'build/js/bundle.js' compiled and minified."
+	@browserify -t [ babelify --presets [ latest ] ] -t eslintify $< | uglifyjs -o $@
+	$(OUT) "'$@' compiled and minified."
 else
-	@-make -s test
-	@browserify -t [ babelify ] -t eslintify -d source/js/main.js -o build/js/bundle.js
-ifdef CTAGS
-	@ctags --tag-relative=yes --recurse=yes -f source/tags source/js
-endif
-	$(OUT) "'build/js/bundle.js' compiled, 'source/tags' generated."
+	@tape -r babel-register $(shell find source/js/ -name $(addsuffix .test.js,$(notdir $(basename $?)))) | tap-diff
+	@browserify -t [ babelify --presets [ latest ] ] -t eslintify -d $< -o $@
+	@make -s tags
+	$(OUT) "'$@' compiled."
 endif
 
 # build scss
-build/css/bundle.css: $(wildcard source/scss/*.scss) $(wildcard source/scss/modules/*.scss)
+build/css/bundle.css: source/scss/main.scss $(wildcard source/scss/*.scss) $(wildcard source/scss/modules/*.scss)
 ifdef PROD
-	@node-sass -q --output-style 'compressed' source/scss/main.scss build/css/bundle.css
-	$(OUT) "'build/css/bundle.css' compiled and minified."
+	@node-sass -q --output-style 'compressed' $< $@
+	$(OUT) "'$@' compiled and minified."
 else
-	@node-sass -q --source-map-contents 'true' --source-map-embed 'true' source/scss/main.scss build/css/bundle.css
-	$(OUT) "'build/css/bundle.css' compiled."
+	@node-sass -q --source-map-contents 'true' --source-map-embed 'true' $< $@
+	$(OUT) "'$@' compiled."
 endif
 
 

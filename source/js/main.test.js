@@ -1,6 +1,6 @@
-import test from 'tape';
+var test = require('tape');
 
-test('sample', function (t) {
+test('main', function (t) {
 	t.equal('foo', 'foo', 'foo should be equal to foo');
 	t.end();
 });
